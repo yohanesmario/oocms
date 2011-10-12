@@ -24,7 +24,7 @@ class Book {
 				echo "<link>index.php?id=".$this->article->getID($i)."</link>";
 				echo "<date>".$this->article->getGMTTime($i)."</date>";
 				echo "<time>".$this->article->getGMTDate($i)."</time>";
-				echo "<content>".htmlspecialchars($this->article->getContent($i))."</content>";
+				echo "<content>".$this->article->getContent($i)."</content>";
 				echo "<footer>";
 					if ($comment==false) {
 							echo "<folder>".$this->article->getFolder($i)."</folder>";
