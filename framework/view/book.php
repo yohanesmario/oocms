@@ -9,7 +9,6 @@ class Book {
 	}
 
 	public function printArticle($limit, $page, $comment, $id) {
-		// NEED TO ADD ARCHIVE HANDLING!
 		// NEED TO IMPLEMENT CLIENT_TIME_ZONE!
 		$page = ($page==NULL || $page<=0)?1:$page;
 		$comment = ($comment==NULL)?false:$comment;
