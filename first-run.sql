@@ -69,10 +69,10 @@ CREATE TABLE IF NOT EXISTS `content` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `links`
+-- Table structure for table `tab`
 --
 
-CREATE TABLE IF NOT EXISTS `links` (
+CREATE TABLE IF NOT EXISTS `tab` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `judul` varchar(100) NOT NULL,
   `isi` longtext NOT NULL,

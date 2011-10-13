@@ -2,13 +2,36 @@
 
 class Book {
 	private $article;
+	private $tab;
 
 	public function Book(DBAccess $dbAccess, $id, $folder, $archive) {
 		$dbAccess->connect();
 		$this->article = new Article($dbAccess, $id, $folder, $archive);
+		$this->tab = new Tab($dbAccess);
 	}
 
-	public function printArticle($limit, $page, $comment, $id) {
+	public function printBook($limit, $page, $comment, $id, $tab) {
+		$return = "<span class='book'>\n";
+
+		if ($tab!=NULL) {
+			$return .= $this->printTab($tab);
+		} else {
+			$return .= $this->printArticle($limit, $page, $comment, $id);
+		}
+
+		$return .= "</span>"; //end of <span class='book'>
+		return $return;
+	}
+
+	private function printTab($id) {
+		$return = "<div class='tab'>\n";
+		$return .= "<div class='title'><a href='index.php?tab=".$this->tab->getID($id)."'>".$this->tab->getTitle($id)."</a></div>\n";
+		$return .= "<div class='content'>".$this->tab->getContent($id)."</div>\n";
+		$return .= "</div>\n";
+		return $return;
+	}
+
+	private function printArticle($limit, $page, $comment, $id) {
 		// NEED TO IMPLEMENT CLIENT_TIME_ZONE!
 		$page = ($page==NULL || $page<=0)?1:$page;
 		$comment = ($comment==NULL)?false:$comment;
@@ -16,42 +39,40 @@ class Book {
 		$i = $limit*($page-1);
 		$iteration = 0;
 
-		$return = "<span class='book'>";
 		while ($this->article->getID($i) && $iteration<$limit) {
-			$return .= "<div class='article'>";
-				$return .= "<div class='title'><a title='By : ".$this->article->getAuthor($i)."' href='index.php?id=".$this->article->getID($i)."'>".$this->article->getTitle($i)."</a></div>";
-				$return .= "<span class='date'>".$this->article->getGMTDate($i)."</span>";
-				$return .= "<span class='time'>".$this->article->getGMTTime($i)."</span>";
-				$return .= "<div class='content'>".$this->article->getContent($i)."</div>";
-				$return .= "<div class='footer'>";
+			$return .= "<div class='article'>\n";
+				$return .= "<div class='title'><a title='By : ".$this->article->getAuthor($i)."' href='index.php?id=".$this->article->getID($i)."'>".$this->article->getTitle($i)."</a></div>\n";
+				$return .= "<span class='date'>".$this->article->getGMTDate($i)."</span>\n";
+				$return .= "<span class='time'>".$this->article->getGMTTime($i)."</span>\n";
+				$return .= "<div class='content'>".$this->article->getContent($i)."</div>\n";
+				$return .= "<div class='footer'>\n";
 					if ($comment==false) {
-						$return .= "<span class='folder'>Posted in <a href='index.php?folder=".$this->article->getFolder($i)."'>".$this->article->getFolder($i)."</a></span>";
+						$return .= "<span class='folder'>Posted in <a href='index.php?folder=".$this->article->getFolder($i)."'>".$this->article->getFolder($i)."</a></span>\n";
 
 						if ($this->article->countComments($this->article->getID($i)) > 1) {
-							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comments</a></span>";
+							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comments</a></span>\n";
 						} else if ($this->article->countComments($this->article->getID($i)) > 0) {
-							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comment</a></span>";
+							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comment</a></span>\n";
 						} else {
-							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>Add a comment</a></span>";
+							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>Add a comment</a></span>\n";
 						}
 
 					} else {
 						//Comment section
 						if ($id!=NULL) {
-							$return .= "<div class='comments'>";
+							$return .= "<div class='comments'>\n";
 								$return .= $this->getComments(true, $this->article->getID($i), NULL);
-							$return .= "</div>";
+							$return .= "</div>\n";
 						} else {
-							$return .= "<div class='comments'>";
+							$return .= "<div class='comments'>\n";
 								$return .= $this->getComments(false, $this->article->getID($i), NULL);
-							$return .= "</div>";
+							$return .= "</div>\n";
 						}
 					}
-				$return .= "</div>"; //end of <div class='footer'>
-			$return .= "</div>"; //end of <div class='article'>
+				$return .= "</div>\n"; //end of <div class='footer'>
+			$return .= "</div>\n"; //end of <div class='article'>
 			$i++; $iteration++;
 		}
-		$return .= "</span>"; //end of <span class='book'>
 		return $return;
 	}
 
@@ -62,19 +83,19 @@ class Book {
 		$i=0;
 		$return="";
 		while ($result[$i]) {
-			$return .= "<div class='comment'>";
+			$return .= "<div class='comment'>\n";
 				if ($result[$i]['website']!="") {
-					$return .= "<div class='name'><a href='".$result[$i]['website']."' title='".$result[$i]['website']."'>".$result[$i]['nama']."</a></div>";
+					$return .= "<div class='name'><a href='".$result[$i]['website']."' title='".$result[$i]['website']."'>".$result[$i]['nama']."</a></div>\n";
 				} else {
-					$return .= "<div class='name'>".$result[$i]['nama']."</div>";
+					$return .= "<div class='name'>".$result[$i]['nama']."</div>\n";
 				}
-				$return .= "<span class='date'>".$result[$i]['tanggal']."</span>";
-				$return .= "<span class='time'>".$result[$i]['waktu']."</span>";
-				$return .= "<div class='content'>".$result[$i]['comments']."</div>";
-			$return .= "</div>"; //end of <div class='comment'>
-			$return .= "<div class='reply'>";
+				$return .= "<span class='date'>".$result[$i]['tanggal']."</span>\n";
+				$return .= "<span class='time'>".$result[$i]['waktu']."</span>\n";
+				$return .= "<div class='content'>".$result[$i]['comments']."</div>\n";
+			$return .= "</div>\n"; //end of <div class='comment'>
+			$return .= "<div class='reply'>\n";
 				$return .= $this->getComments(false, $id, $result[$i]['id']);
-			$return .= "</div>";
+			$return .= "</div>\n";
 			$i++;
 		}
 

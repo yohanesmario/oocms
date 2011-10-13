@@ -14,10 +14,11 @@ $id = ($janitor->validateID($_GET['id'])) ? $_GET['id'] : NULL; //..............
 $folder = ($janitor->validateFolder($_GET['folder'])) ? $_GET['folder'] : NULL; //..................... sanitize $_GET['folder']
 $archive = ($janitor->validateArchive($_GET['archive'])) ? $_GET['archive'] : NULL; //................. sanitize $_GET['archive']
 $page = ($janitor->validatePage($_GET['page'], $id, $folder, $archive)) ? $_GET['page'] : NULL; //..... sanitize $_GET['page']
+$tab = ($janitor->validateTab($_GET['tab'])) ? $_GET['tab'] : NULL; //..................................... sanitize $_GET['id']
 //I use conditional operator to shorten the sanitization code above. To learn about conditional operator, just google "conditional operator php".
 
 $book = new Book($dbAccess, $id, $folder, $archive); //book view
 
-$bookResult = $book->printArticle(NULL, $page, ($id!=NULL)?true:false, $id); //contain the book span HTML in a string
+$bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $tab); //contain the book span HTML in a string
 echo $bookResult;
 ?>

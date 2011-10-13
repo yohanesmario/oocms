@@ -46,6 +46,28 @@ class Janitor {
 		return $validator;
 	}
 
+	public function validateTab($num) {
+		$SQL = "SELECT * FROM tab ORDER BY id ASC";
+		$query = mysql_query($SQL);
+		if (!$query) {
+			echo(mysql_error());
+			exit();
+		}
+		$i=0;
+		while ($result = mysql_fetch_array($query)) {
+			$id[$i] = $result['id'];
+			$i++;
+		}
+		$i=0; $validator=false;
+		while ($id[$i] && $validator==false) {
+			if ($num==$id[$i]) {
+				$validator=true;
+			}
+			$i++;
+		}
+		return $validator;
+	}
+
 	public function validateFolder($str) {
 		$SQL = "SELECT * FROM content ORDER BY id ASC";
 		$query = mysql_query($SQL);
