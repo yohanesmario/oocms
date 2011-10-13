@@ -17,13 +17,13 @@ class Article {
 		$this->dbAccess->connect();
 
 		if ($id!=NULL) {
-			$SQL = "SELECT * FROM content WHERE id = $id ORDER BY tanggal_gmt DESC, waktu_gmt DESC";
+			$SQL = "SELECT * FROM content WHERE id = $id ORDER BY date_gmt DESC, time_gmt DESC";
 		} else if ($folder!=NULL) {
-			$SQL = "SELECT * FROM content WHERE folder = '$folder' ORDER BY tanggal_gmt DESC, waktu_gmt DESC";
+			$SQL = "SELECT * FROM content WHERE folder = '$folder' ORDER BY date_gmt DESC, time_gmt DESC";
 		} else if ($archive!=NULL) {
-			$SQL = "SELECT * FROM content WHERE tanggal LIKE '$archive%' ORDER BY tanggal_gmt DESC, waktu_gmt DESC";
+			$SQL = "SELECT * FROM content WHERE article_date LIKE '$archive%' ORDER BY date_gmt DESC, time_gmt DESC";
 		} else {
-			$SQL = "SELECT * FROM content ORDER BY tanggal_gmt DESC, waktu_gmt DESC";
+			$SQL = "SELECT * FROM content ORDER BY date_gmt DESC, time_gmt DESC";
 		}
 		$query = mysql_query($SQL);
 		if (!$query) {
@@ -33,10 +33,10 @@ class Article {
 		$i=0;
 		while ($result = mysql_fetch_array($query)) {
 			$this->id[$i] = $result['id'];
-			$this->gmtTime[$i] = $result['waktu_gmt'];
-			$this->gmtDate[$i] = $result['tanggal_gmt'];
-			$this->title[$i] = $result['judul'];
-			$this->content[$i] = $result['isi'];
+			$this->gmtTime[$i] = $result['time_gmt'];
+			$this->gmtDate[$i] = $result['date_gmt'];
+			$this->title[$i] = $result['title'];
+			$this->content[$i] = $result['content'];
 			$this->folder[$i] = $result['folder'];
 			$this->author[$i] = $result['content_author'];
 			$i++;
@@ -57,7 +57,7 @@ class Article {
 	}
 
 	public function countComments($id) {
-		$SQL = "SELECT * from comments WHERE post_id = $id AND approval = 'approved' ORDER BY tanggal ASC, waktu ASC";
+		$SQL = "SELECT * from comments WHERE post_id = $id AND approval = 'approved' ORDER BY comment_date ASC, comment_time ASC";
 		$query = mysql_query($SQL);
 		if (!$query) {
 			die("Database ERROR! Can't get comments!");
@@ -71,7 +71,7 @@ class Article {
 	}
 
 	public function commentDB($id, $reply) {
-		$SQL = "SELECT * from comments WHERE post_id = $id AND approval = 'approved' AND reply_to = $reply ORDER BY tanggal ASC, waktu ASC";
+		$SQL = "SELECT * from comments WHERE post_id = $id AND approval = 'approved' AND reply_to = $reply ORDER BY comment_date ASC, comment_time ASC";
 		$query = mysql_query($SQL);
 		if (!$query) {
 			die("Database ERROR! Can't get comments!");

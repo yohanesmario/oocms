@@ -20,7 +20,7 @@ USE `oocms`;
 
 CREATE TABLE IF NOT EXISTS `blogroll` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(200) NOT NULL,
+  `user_name` varchar(200) NOT NULL,
   `blog` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
@@ -33,14 +33,14 @@ CREATE TABLE IF NOT EXISTS `blogroll` (
 
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(100) NOT NULL,
+  `commenter_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `website` varchar(50) NOT NULL,
   `comments` longtext NOT NULL,
   `post_id` int(11) NOT NULL,
-  `tanggal` date NOT NULL,
-  `waktu` time NOT NULL,
-  `tipe` varchar(50) NOT NULL,
+  `comment_date` date NOT NULL,
+  `comment_time` time NOT NULL,
+  `commenter_type` varchar(50) NOT NULL,
   `reply_to` int(50) NOT NULL,
   `approval` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
@@ -54,13 +54,13 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 CREATE TABLE IF NOT EXISTS `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tanggal` date NOT NULL,
-  `waktu` time NOT NULL,
-  `tanggal_gmt` date NOT NULL,
-  `waktu_gmt` time NOT NULL,
+  `article_date` date NOT NULL,
+  `article_time` time NOT NULL,
+  `date_gmt` date NOT NULL,
+  `time_gmt` time NOT NULL,
   `user_timezone` varchar(200) NOT NULL,
-  `judul` text NOT NULL,
-  `isi` longtext NOT NULL,
+  `title` text NOT NULL,
+  `content` longtext NOT NULL,
   `folder` varchar(50) NOT NULL,
   `content_author` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS `content` (
 
 CREATE TABLE IF NOT EXISTS `tab` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `judul` varchar(100) NOT NULL,
-  `isi` longtext NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 

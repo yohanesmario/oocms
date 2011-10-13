@@ -1,10 +1,10 @@
 <?php
 
 class DBAccess {
-	private $usr = "";
-	private $pwd = "";
-	private $host = "localhost";
-	private $db = "";
+	private $usr = ""; //enter your database username
+	private $pwd = ""; //enter your database password
+	private $host = "localhost"; //enter your database host (default: localhost)
+	private $db = ""; //enter your database name
 
 	public function connect() {
 		$cid = mysql_connect($this->host, $this->usr, $this->pwd);

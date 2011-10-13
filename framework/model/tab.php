@@ -12,7 +12,7 @@ class Tab {
 		$this->dbAccess = $dbAccess;
 		$this->dbAccess->connect();
 
-		$SQL = "SELECT * FROM tab ORDER BY judul ASC";
+		$SQL = "SELECT * FROM tab ORDER BY title ASC";
 		$query = mysql_query($SQL);
 		if (!$query) {
 			echo(mysql_error());
@@ -22,8 +22,8 @@ class Tab {
 		while ($result = mysql_fetch_array($query)) {
 			$this->idPointer[$i] = $result['id'];
 			$this->id[$result['id']] = $result['id'];
-			$this->title[$result['id']] = $result['judul'];
-			$this->content[$result['id']] = $result['isi'];
+			$this->title[$result['id']] = $result['title'];
+			$this->content[$result['id']] = $result['content'];
 			$i++;
 		}
 	}

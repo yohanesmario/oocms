@@ -60,11 +60,11 @@ class Book {
 					} else {
 						//Comment section
 						if ($id!=NULL) {
-							$return .= "<div class='comments'>\n";
+							$return .= "<div class='comments' id='comments'>\n";
 								$return .= $this->getComments(true, $this->article->getID($i), NULL);
 							$return .= "</div>\n";
 						} else {
-							$return .= "<div class='comments'>\n";
+							$return .= "<div class='comments' id='comments'>\n";
 								$return .= $this->getComments(false, $this->article->getID($i), NULL);
 							$return .= "</div>\n";
 						}
@@ -85,12 +85,12 @@ class Book {
 		while ($result[$i]) {
 			$return .= "<div class='comment'>\n";
 				if ($result[$i]['website']!="") {
-					$return .= "<div class='name'><a href='".$result[$i]['website']."' title='".$result[$i]['website']."'>".$result[$i]['nama']."</a></div>\n";
+					$return .= "<div class='name' id='".$result[$i]['commenter_type']."'><a href='".$result[$i]['website']."' title='".$result[$i]['website']."'>".$result[$i]['commenter_name']."</a></div>\n";
 				} else {
-					$return .= "<div class='name'>".$result[$i]['nama']."</div>\n";
+					$return .= "<div class='name'>".$result[$i]['commenter_name']."</div>\n";
 				}
-				$return .= "<span class='date'>".$result[$i]['tanggal']."</span>\n";
-				$return .= "<span class='time'>".$result[$i]['waktu']."</span>\n";
+				$return .= "<span class='date'>".$result[$i]['comment_date']."</span>\n";
+				$return .= "<span class='time'>".$result[$i]['comment_time']."</span>\n";
 				$return .= "<div class='content'>".$result[$i]['comments']."</div>\n";
 			$return .= "</div>\n"; //end of <div class='comment'>
 			$return .= "<div class='reply'>\n";
