@@ -18,10 +18,6 @@ $page = ($janitor->validatePage($_GET['page'], $id, $folder, $archive)) ? $_GET[
 
 $book = new Book($dbAccess, $id, $folder, $archive); //book view
 
-//This header declaration needs to be done in separate class
-header('Content-Type: text/xml');
-echo '<?xml version="1.0" encoding="UTF-8" ?>';
-
-$book->printArticle(NULL, $page, ($id!=NULL)?true:false, $id); //print the articles in XML.
-
+$bookResult = $book->printArticle(NULL, $page, ($id!=NULL)?true:false, $id); //contain the book span HTML in a string
+echo $bookResult;
 ?>
