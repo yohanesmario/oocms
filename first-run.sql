@@ -109,10 +109,10 @@ CREATE TABLE IF NOT EXISTS `sidebar_list` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sidebar_text`
+-- Table structure for table `widget`
 --
 
-CREATE TABLE IF NOT EXISTS `sidebar_text` (
+CREATE TABLE IF NOT EXISTS `widget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`)

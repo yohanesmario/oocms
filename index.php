@@ -18,7 +18,13 @@ $tab = ($janitor->validateTab($_GET['tab'])) ? $_GET['tab'] : NULL; //..........
 //I use conditional operator to shorten the sanitization code above. To learn about conditional operator, just google "conditional operator php".
 
 $book = new Book($dbAccess, $id, $folder, $archive); //book view
+$sidebar = new Sidebar($dbAccess); //sidebar view
 
+//getting view results
 $bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $tab); //contain the book span HTML in a string
+$sidebarResult = $sidebar->printWidget(); //contain the sidebar span HTML in a string
+
+//echo the results (you can format it to a table or add css if you want)
 echo $bookResult;
+echo $sidebarResult;
 ?>

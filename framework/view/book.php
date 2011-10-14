@@ -25,7 +25,7 @@ class Book {
 
 	private function printTab($id) {
 		$return = "<div class='tab'>\n";
-		$return .= "<div class='title'><a href='index.php?tab=".$this->tab->getID($id)."'>".$this->tab->getTitle($id)."</a></div>\n";
+		$return .= "<div class='title'><a href='?tab=".$this->tab->getID($id)."'>".$this->tab->getTitle($id)."</a></div>\n";
 		$return .= "<div class='content'>".$this->tab->getContent($id)."</div>\n";
 		$return .= "</div>\n";
 		return $return;
@@ -41,20 +41,20 @@ class Book {
 
 		while ($this->article->getID($i) && $iteration<$limit) {
 			$return .= "<div class='article'>\n";
-				$return .= "<div class='title'><a title='By : ".$this->article->getAuthor($i)."' href='index.php?id=".$this->article->getID($i)."'>".$this->article->getTitle($i)."</a></div>\n";
+				$return .= "<div class='title'><a title='By : ".$this->article->getAuthor($i)."' href='?id=".$this->article->getID($i)."'>".$this->article->getTitle($i)."</a></div>\n";
 				$return .= "<span class='date'>".$this->article->getGMTDate($i)."</span>\n";
 				$return .= "<span class='time'>".$this->article->getGMTTime($i)."</span>\n";
 				$return .= "<div class='content'>".$this->article->getContent($i)."</div>\n";
 				$return .= "<div class='footer'>\n";
 					if ($comment==false) {
-						$return .= "<span class='folder'>Posted in <a href='index.php?folder=".$this->article->getFolder($i)."'>".$this->article->getFolder($i)."</a></span>\n";
+						$return .= "<span class='folder'>Posted in <a href='?folder=".$this->article->getFolder($i)."'>".$this->article->getFolder($i)."</a></span>\n";
 
 						if ($this->article->countComments($this->article->getID($i)) > 1) {
-							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comments</a></span>\n";
+							$return .= "<span class='commentCount'><a href='?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comments</a></span>\n";
 						} else if ($this->article->countComments($this->article->getID($i)) > 0) {
-							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comment</a></span>\n";
+							$return .= "<span class='commentCount'><a href='?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comment</a></span>\n";
 						} else {
-							$return .= "<span class='commentCount'><a href='index.php?id=".$this->article->getID($i)."#comments'>Add a comment</a></span>\n";
+							$return .= "<span class='commentCount'><a href='?id=".$this->article->getID($i)."#comments'>Add a comment</a></span>\n";
 						}
 
 					} else {
