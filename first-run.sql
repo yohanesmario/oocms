@@ -97,18 +97,6 @@ CREATE TABLE IF NOT EXISTS `options` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sidebar_list`
---
-
-CREATE TABLE IF NOT EXISTS `sidebar_list` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `list` varchar(1000) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `widget`
 --
 
