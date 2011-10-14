@@ -1,4 +1,6 @@
 <?php
+//pointer to the license file
+include "../license.php";
 
 class Janitor {
 	private $dbAccess;
