@@ -7,7 +7,6 @@ class Book {
 	private $tab;
 
 	public function Book(DBAccess $dbAccess, $id, $folder, $archive) {
-		$dbAccess->connect();
 		$this->article = new Article($dbAccess, $id, $folder, $archive);
 		$this->tab = new Tab($dbAccess);
 	}

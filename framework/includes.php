@@ -9,10 +9,12 @@ include "model/widget.php";
 include "model/widget/folder.php";
 include "model/widget/archive.php";
 include "model/widget/blogroll.php";
+include "model/widget/title.php";
 
 // view
 include "view/book.php";
 include "view/sidebar.php";
+include "view/head.php";
 
 // controller
 include "controller/janitor.php";
