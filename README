@@ -1,10 +1,8 @@
-*********************************************************************************************
-**                    OOCMS (Object Oriented Content Management System)                    **
-**                                                                                         **
-**                                version 1.0-alpha2-pre                                   **
-**                                                                                         **
-** This project is licensed under the Creative Commons Attribution 3.0 License (CC BY 3.0) **
-*********************************************************************************************
+***************************************************************
+**     OOCMS (Object Oriented Content Management System)     **
+**                                                           **
+**                 version 1.0-alpha2-pre                    **
+***************************************************************
 
 The goal of this project is to make a full featured object oriented CMS.
 Using the MVC architecture, this hopes to bring a better and modular system.
@@ -16,3 +14,4 @@ To-do List:
 1. Special widgets (title, footer)
 2. Comment Box
 3. Admin panel
+
