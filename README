@@ -1,14 +1,14 @@
-***************************************************************
-**     OOCMS (Object Oriented Content Management System)     **
-**                                                           **
-**                 version 1.0-alpha2-pre                    **
-***************************************************************
+OOCMS (Object Oriented Content Management System)
+
+version 1.0-alpha2-pre
+
 
 The goal of this project is to make a full featured object oriented CMS.
 Using the MVC architecture, this hopes to bring a better and modular system.
 
 At first run, run the first-run.sql and fill the required information at framework/model/db-access.php.
-Don't forget to make the framework/model directory inaccessible to public, as it contains sensitive informations.
+The framework directory is protected by a .htaccess file, but it may be best to set access restriction manually
+as it contains sensitive informations.
 
 To-do List:
 1. Special widgets (title, footer)
