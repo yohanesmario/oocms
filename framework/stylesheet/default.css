@@ -1,0 +1,52 @@
+html,
+body {
+	margin:0px;
+}
+
+#site {
+	width:100%;
+}
+
+#site,
+#site tr,
+#site tr td {
+	border-collapse:collapse;
+	border:1px solid black;
+	vertical-align:top;
+	margin:0px;
+}
+
+#site tr td {
+	padding:10px;
+}
+
+#head {
+	min-width:800px;
+	text-align:center;
+}
+
+#book {
+	min-width:500px;
+}
+
+#sidebar {
+	width:300px;
+	min-width:300px;
+}
+
+#book .book .article {
+	border-bottom:1px solid black;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#book .book .article .title,
+#book .book .article .date_time,
+#book .book .article .footer,
+#book .book .tab .title {
+	text-align:center;
+}
+
+#book .book .article .content {
+	text-align:justify;
+}

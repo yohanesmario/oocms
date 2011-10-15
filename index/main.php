@@ -1,6 +1,6 @@
 <?php
 
-include "framework/includes.php"; //include all listed classes. If you make custom classes, please ensure that they are already listed in the file.
+include "../framework/includes.php"; //include all listed classes. If you make custom classes, please ensure that they are already listed in the file.
 
 $dbAccess = new DBAccess(); //core model layer
 $janitor = new Janitor($dbAccess); //core controller layer
@@ -23,31 +23,3 @@ $bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $tab); 
 $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a string
 
 ?>
-
-<html>
-<head>
-<script type="text/JavaScript" src="framework/javascript/jquery-1.5.2.js"></script>
-<?php
-echo"<script type='text/JavaScript'>
-function loadBook() {
-	$('#book').load('index/book.php?id=$id&page=$page&archive=$archive&folder=$folder&tab=$tab');
-}";
-?>
-</script>
-<link rel="stylesheet" type="text/css" href="framework/stylesheet/default.css" />
-</head>
-<body>  
-	<table id='site'>
-		<tr>
-			<td colspan=2 id='head'><?php echo $headResult; ?></td>
-		</tr>
-		<tr>
-			<td id='book'><? echo $bookResult; ?></td>
-			<td id='sidebar'><? echo $sidebarResult; ?></td>
-		</tr>
-	</table>
-	<script type="text/JavaScript">
-		loadBook();
-	</script> <? //For timezone detection (not yet implemented) ?>
-</body>
-</html>
