@@ -25,29 +25,27 @@ $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a 
 ?>
 
 <html>
-<head>
-<script type="text/JavaScript" src="framework/javascript/jquery-1.5.2.js"></script>
-<?php
-echo"<script type='text/JavaScript'>
-function loadBook() {
-	$('#book').load('index/book.php?id=$id&page=$page&archive=$archive&folder=$folder&tab=$tab');
-}";
-?>
-</script>
-<link rel="stylesheet" type="text/css" href="framework/stylesheet/default.css" />
-</head>
-<body>  
-	<table id='site'>
-		<tr>
-			<td colspan=2 id='head'><?php echo $headResult; ?></td>
-		</tr>
-		<tr>
-			<td id='book'><? echo $bookResult; ?></td>
-			<td id='sidebar'><? echo $sidebarResult; ?></td>
-		</tr>
-	</table>
-	<script type="text/JavaScript">
-		loadBook();
-	</script> <? //For timezone detection (not yet implemented) ?>
-</body>
+	<head>
+		<script type="text/javascript" src='framework/javascript/detect_timezone.js'></script>
+		<script type="text/javascript" src='framework/javascript/cookie.js'></script>
+		<script type="text/javascript">
+			var timezone = determine_timezone().timezone; // Now you have an instance of the TimeZone object.
+			if (!getCookie("timezone_js")) {
+				setCookie("timezone_js", timezone.olson_tz, 365);
+				window.location="<?=$_SERVER['PHP_SELF']?>";
+			}
+		</script>
+		<link rel="stylesheet" type="text/css" href="framework/stylesheet/default.css" />
+	</head>
+	<body>  
+		<table id='site'>
+			<tr>
+				<td colspan=2 id='head'><?php echo $headResult; ?></td>
+			</tr>
+			<tr>
+				<td id='book'><? echo $bookResult; ?></td>
+				<td id='sidebar'><? echo $sidebarResult; ?></td>
+			</tr>
+		</table>
+	</body>
 </html>

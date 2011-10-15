@@ -101,7 +101,7 @@ class Janitor {
 		}
 		$i=0;
 		while ($result = mysql_fetch_array($query)) {
-			$temp= explode("-",$result['article_date']);
+			$temp= explode("-",$result['date_gmt']);
 			$archive[$i] = $temp[0]."-".$temp[1];
 			$i++;
 		}
@@ -121,7 +121,7 @@ class Janitor {
 		} else if ($folder!=NULL) {
 			$SQL = "SELECT * FROM content WHERE folder = '$folder' ORDER BY id ASC";
 		} else if ($archive!=NULL) {
-			$SQL = "SELECT * FROM content WHERE article_date LIKE '$archive%' ORDER BY id ASC";
+			$SQL = "SELECT * FROM content WHERE date_gmt LIKE '$archive%' ORDER BY id ASC";
 		} else {
 			$SQL = "SELECT * FROM content ORDER BY id ASC";
 		}

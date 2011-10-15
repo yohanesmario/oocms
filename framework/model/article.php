@@ -6,6 +6,8 @@ class Article {
 	private $id;
 	private $gmtTime;
 	private $gmtDate;
+	private $time;
+	private $date;
 	private $title;
 	private $content;
 	private $folder;
@@ -23,7 +25,7 @@ class Article {
 		} else if ($folder!=NULL) {
 			$SQL = "SELECT * FROM content WHERE folder = '$folder' ORDER BY date_gmt DESC, time_gmt DESC";
 		} else if ($archive!=NULL) {
-			$SQL = "SELECT * FROM content WHERE article_date LIKE '$archive%' ORDER BY date_gmt DESC, time_gmt DESC";
+			$SQL = "SELECT * FROM content WHERE date_gmt LIKE '$archive%' ORDER BY date_gmt DESC, time_gmt DESC";
 		} else {
 			$SQL = "SELECT * FROM content ORDER BY date_gmt DESC, time_gmt DESC";
 		}
@@ -32,11 +34,23 @@ class Article {
 			echo(mysql_error());
 			exit();
 		}
+		$time_zone = (!$_COOKIE['timezone_js'])?"GMT":$_COOKIE['timezone_js'];
+		date_default_timezone_set("GMT");
+		$mktime_gmt = mktime(1,1,1,1,1,2000);
+		date_default_timezone_set($time_zone);
+		$mktime_user = mktime(1,1,1,1,1,2000);
 		$i=0;
 		while ($result = mysql_fetch_array($query)) {
 			$this->id[$i] = $result['id'];
 			$this->gmtTime[$i] = $result['time_gmt'];
 			$this->gmtDate[$i] = $result['date_gmt'];
+			$time = explode(":", $this->gmtTime[$i]);
+			$date = explode("-", $this->gmtDate[$i]);
+			$mktime = $mktime_gmt-$mktime_user;
+			$mktime = mktime(intval($time[0]), intval($time[1]), intval($time[2]), intval($date[1]), intval($date[2]), intval($date[0]))+$mktime;
+			$this->date[$i] = date("l, d F Y", $mktime); //Friday, 19 August 2011
+			$this->time[$i] = date("g:i A", $mktime); //2:16 PM
+			$this->time[$i] .= ($time_zone=="GMT")?" GMT":""; //2:16 PM GMT
 			$this->title[$i] = $result['title'];
 			$this->content[$i] = $result['content'];
 			$this->folder[$i] = $result['folder'];
@@ -107,6 +121,14 @@ class Article {
 
 	public function getGMTDate($i) {
 		return $this->gmtDate[$i];
+	}
+
+	public function getTime($i) {
+		return $this->time[$i];
+	}
+
+	public function getDate($i) {
+		return $this->date[$i];
 	}
 
 	public function getTitle($i) {
