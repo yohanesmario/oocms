@@ -23,14 +23,13 @@ $bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $tab); 
 $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a string
 
 ?>
-
 <html>
 	<head>
 		<script type="text/javascript" src='framework/javascript/detect_timezone.js'></script>
 		<script type="text/javascript" src='framework/javascript/cookie.js'></script>
 		<script type="text/javascript">
-			var timezone = determine_timezone().timezone; // Now you have an instance of the TimeZone object.
-			if (!getCookie("timezone_js")) {
+			var timezone = determine_timezone().timezone;
+			if (!getCookie("timezone_js") || getCookie("timezone_js")!=timezone.olson_tz) {
 				setCookie("timezone_js", timezone.olson_tz, 365);
 				window.location="<?=$_SERVER['PHP_SELF']?>";
 			}
