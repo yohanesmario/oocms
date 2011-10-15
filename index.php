@@ -1,5 +1,10 @@
 <?php
 
+/*************************************************
+ * This is a sample of a typical index.php file. *
+ * You can change it to your liking.             *
+ *************************************************/
+
 include "framework/includes.php"; //include all listed classes. If you make custom classes, please ensure that they are already listed in the file.
 
 $dbAccess = new DBAccess(); //core model layer
@@ -31,7 +36,7 @@ $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a 
 			var timezone = determine_timezone().timezone;
 			if (!getCookie("timezone_js") || getCookie("timezone_js")!=timezone.olson_tz) {
 				setCookie("timezone_js", timezone.olson_tz, 365);
-				window.location="<?=$_SERVER['PHP_SELF']?>";
+				window.location="";
 			}
 		</script>
 		<link rel="stylesheet" type="text/css" href="framework/stylesheet/default.css" />

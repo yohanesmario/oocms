@@ -35,10 +35,6 @@ class Article {
 			exit();
 		}
 		$time_zone = (!$_COOKIE['timezone_js'])?"GMT":$_COOKIE['timezone_js'];
-		date_default_timezone_set("GMT");
-		$mktime_gmt = mktime(1,1,1,1,1,2000);
-		date_default_timezone_set($time_zone);
-		$mktime_user = mktime(1,1,1,1,1,2000);
 		$i=0;
 		while ($result = mysql_fetch_array($query)) {
 			$this->id[$i] = $result['id'];
@@ -46,7 +42,13 @@ class Article {
 			$this->gmtDate[$i] = $result['date_gmt'];
 			$time = explode(":", $this->gmtTime[$i]);
 			$date = explode("-", $this->gmtDate[$i]);
+
+			date_default_timezone_set("GMT");
+			$mktime_gmt = mktime(intval($time[0]), intval($time[1]), intval($time[2]), intval($date[1]), intval($date[2]), intval($date[0]));
+			date_default_timezone_set($time_zone);
+			$mktime_user = mktime(intval($time[0]), intval($time[1]), intval($time[2]), intval($date[1]), intval($date[2]), intval($date[0]));
 			$mktime = $mktime_gmt-$mktime_user;
+
 			$mktime = mktime(intval($time[0]), intval($time[1]), intval($time[2]), intval($date[1]), intval($date[2]), intval($date[0]))+$mktime;
 			$this->date[$i] = date("l, d F Y", $mktime); //Friday, 19 August 2011
 			$this->time[$i] = date("g:i A", $mktime); //2:16 PM
