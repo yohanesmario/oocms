@@ -5,7 +5,7 @@ include "../license.php";
 class Janitor {
 	private $dbAccess;
 
-	public function Janitor(DBAccess$dbAccess) {
+	public function Janitor(DBAccess $dbAccess) {
 		//DBAccess needs to be instantiated outside of this class. $dbAccess is just a reference, not a copy, simply to reduce memory usage.
 		$this->dbAccess = $dbAccess;
 		$this->dbAccess->connect();
