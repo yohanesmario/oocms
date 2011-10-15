@@ -69,7 +69,7 @@ class Sidebar {
 		}
 	}
 
-	public function printWidget() {
+	public function printSidebar() {
 		$return = "<span class='sidebar'>\n";
 		
 		$i=0;

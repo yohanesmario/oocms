@@ -5,7 +5,7 @@ include "../license.php";
 class Head {
 	private $title;
 
-	public function Head($dbAccess) {
+	public function Head(DBAccess $dbAccess) {
 		$this->title = new Title($dbAccess);
 	}
 
