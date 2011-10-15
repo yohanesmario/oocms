@@ -11,7 +11,7 @@ class Head {
 
 	public function printHead() {
 		$return = "<div class='head'>";
-		$return .= "<div class='title'><a href=''>".$this->title->getTitle()."</a></div>";
+		$return .= "<div class='title'><a href='".$_SERVER['PHP_SELF']."'>".$this->title->getTitle()."</a></div>";
 		$return .= "<div class='tagline'>".$this->title->getTagline()."</div>";
 		$return .= "</div>";
 		return $return;
