@@ -20,7 +20,7 @@ class Book {
 			$return .= $this->printTab($tab);
 		} else {
 			$page = ($page==NULL || $page<=0)?1:$page;
-			$return .= $this->printArticle($limit, $page, $comment, $id);
+			$return .= $this->printArticle($limit, $page, $comment, $id, $this->janitor);
 			if ($this->janitor->validatePage((intval($page)+1)."", $id, $folder, $archive) || $this->janitor->validatePage((intval($page)-1)."", $id, $folder, $archive)) {
 				$return .= "<div class='pagination'>\n";
 				if($this->janitor->validatePage((intval($page)+1)."", $id, $folder, $archive)) {
@@ -59,7 +59,7 @@ class Book {
 		return $return;
 	}
 
-	private function printArticle($limit, $page, $comment, $id) {
+	private function printArticle($limit, $page, $comment, $id, $janitor) {
 		// NEED TO IMPLEMENT CLIENT_TIME_ZONE!
 		$comment = ($comment==NULL)?false:$comment;
 		$limit = ($limit==NULL)?$this->article->getLimit():$limit;
@@ -91,11 +91,11 @@ class Book {
 						//Comment section
 						if ($id!=NULL) {
 							$return .= "<div class='comments' id='comments'>\n";
-								$return .= $this->getComments(true, $this->article->getID($i), NULL);
+								$return .= $this->getComments(true, $this->article->getID($i), NULL, $janitor);
 							$return .= "</div>\n";
 						} else {
 							$return .= "<div class='comments' id='comments'>\n";
-								$return .= $this->getComments(false, $this->article->getID($i), NULL);
+								$return .= $this->getComments(false, $this->article->getID($i), NULL, $janitor);
 							$return .= "</div>\n";
 						}
 					}
@@ -106,12 +106,13 @@ class Book {
 		return $return;
 	}
 
-	private function getComments($commentBox, $id, $reply) {
+	private function getComments($commentBox, $id, $reply, $janitor) {
 		$reply = ($reply==NULL)?0:$reply;
 		$result = $this->article->commentDB($id, $reply);
 
 		$i=0;
 		$return="";
+
 		while ($result[$i]) {
 			$return .= "<div class='comment'>\n";
 				if ($result[$i]['website']!="") {
@@ -122,18 +123,35 @@ class Book {
 				$return .= "<span class='date'>".$result[$i]['comment_date']."</span> - ";
 				$return .= "<span class='time'>".$result[$i]['comment_time']."</span>\n";
 				$return .= "<div class='content'>".$result[$i]['comments']."</div>\n";
+				$return .= "<div class='reply_button'><a href='#comment_box' onclick=\"document.getElementById('replyto').value='".$result[$i]['website']."'; document.getElementById('replytobutton').type='button'; document.getElementById('replytomessage').innerHTML='you are replying to ".$result[$i]['commenter_name']."';\">Reply</a></div>";
 			$return .= "</div>\n"; //end of <div class='comment'>
 			$return .= "<div class='reply'>\n";
-				$return .= $this->getComments(false, $id, $result[$i]['id']);
+				$return .= $this->getComments(false, $id, $result[$i]['id'], $janitor);
 			$return .= "</div>\n";
 			$i++;
 		}
 
 		if ($commentBox==true) {
-			/**
-			 * PUT COMMENT BOX CODE HERE! DON'T FORGET TO ADD COMMENT HANDLING FUNCTION AND RE-CAPTCHA!
-			 */
+			$return .= "<form id='comment_box' method='POST' action=''>
+					<p>Name:<br />
+						<input class='text' type='text' name='name' size=40 value='' placeholder='enter your name here' />
+					</p>
+
+					<p>Email (not published):<br />
+						<input class='text' type='email' placeholder='enter your email here' name='email' size=40 value='' />
+					</p>
+
+					<p>Website (optional):<br />
+						<input class='text' type='url' name='website' size=40 value='' placeholder='enter your website url here (optional)' />
+					</p>
+
+					<p>Comment:<br />
+						<textarea id='commenttextarea' class='text' name='comment' rows=5 cols=40></textarea>
+					</p>
+
+					<p><input class='submit' type='submit' value='Submit Comment'>&nbsp;&nbsp;<span id='replytomessage'></span>&nbsp;&nbsp;<input id='replytobutton' type='hidden' value='Cancel' onClick=\"this.type='hidden'; document.getElementById('replyto').value='0'; document.getElementById('replytomessage').innerHTML='';\" /></p><input type='hidden' name='id' value=".$id." /><input id='replyto' type='hidden' name='replyto' value='0' /></form>";
 		}
+
 		return $return;
 	}
 

@@ -147,7 +147,8 @@ a:active {color:#ff0000;}  /* selected link */
 	padding:20px;
 	margin-top:20px;
 	margin-bottom:20px;
-	border:1px dotted #D2D2D2;
+	border-top:1px dotted #D2D2D2;
+	border-left:1px dotted #D2D2D2;
 }
 
 .reply {
@@ -165,4 +166,8 @@ a:active {color:#ff0000;}  /* selected link */
 
 .comment .content {
 	padding-top:10px;
+}
+
+#comment_box {
+	text-align:left;
 }
