@@ -71,6 +71,9 @@ $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a 
 			} else {
 				$echo .= "Home";
 			}
+			if ($page!=NULL && $page>=2) {
+				$echo .= " - Page ".$page;
+			}
 			echo $echo." }";
 		?></title>
 	</head>

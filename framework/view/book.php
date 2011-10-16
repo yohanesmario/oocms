@@ -71,7 +71,7 @@ class Book {
 				$return .= "<div class='title'><a title='By : ".$this->article->getAuthor($i)."' href='?id=".$this->article->getID($i)."'>".$this->article->getTitle($i)."</a></div>\n";
 				$return .= "<div class='date_time'>";
 				$return .= "<span class='date'>".$this->article->getDate($i)."</span>";
-				$return .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; //separator
+				$return .= " - "; //separator
 				$return .= "<span class='time'>".$this->article->getTime($i)."</span>\n";
 				$return .= "</div>";
 				$return .= "<div class='content'>".$this->article->getContent($i)."</div>\n";
@@ -119,7 +119,7 @@ class Book {
 				} else {
 					$return .= "<div class='name'>".$result[$i]['commenter_name']."</div>\n";
 				}
-				$return .= "<span class='date'>".$result[$i]['comment_date']."</span>\n";
+				$return .= "<span class='date'>".$result[$i]['comment_date']."</span> - ";
 				$return .= "<span class='time'>".$result[$i]['comment_time']."</span>\n";
 				$return .= "<div class='content'>".$result[$i]['comments']."</div>\n";
 			$return .= "</div>\n"; //end of <div class='comment'>

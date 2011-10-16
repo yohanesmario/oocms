@@ -44,13 +44,13 @@ body {
 
 .head {
 	padding:30px;
-	font-size:14;
+	font-size:14px;
 }
 
 .pagination .newer,
 .pagination .older {
 	padding:30px;
-	font-size:14;
+	font-size:14px;
 }
 
 .pagination {
@@ -83,7 +83,7 @@ body {
 .sidebar .widget {
 	padding:30px;
 	text-align:justify;
-	font-size:14;
+	font-size:14px;
 	line-height:150%;
 }
 
@@ -106,7 +106,7 @@ body {
 }
 
 .menu .menu_container .menu_item a {
-	font-size:14;
+	font-size:14px;
 	padding-top:10px;
 	padding-bottom:10px;
 	padding-left:15px;
@@ -126,12 +126,12 @@ a:active {color:#ff0000;}  /* selected link */
 .title a, .menu_item a {text-decoration:none;}
 
 .head .title {
-	font-size:36;
+	font-size:36px;
 }
 
 .article .title,
 .tab .title {
-	font-size:20;
+	font-size:20px;
 }
 
 .widget .title {
@@ -139,5 +139,30 @@ a:active {color:#ff0000;}  /* selected link */
 }
 
 .article .date_time {
-	font-size:12;
+	font-size:12px;
+}
+
+.comment {
+	text-align:left;
+	padding:20px;
+	margin-top:20px;
+	margin-bottom:20px;
+	border:1px dotted #D2D2D2;
+}
+
+.reply {
+	padding-left:20px;
+}
+
+.comment .name {
+	font-weight:bold;
+}
+
+.comment .date,
+.comment .time {
+	font-size:14px;
+}
+
+.comment .content {
+	padding-top:10px;
 }

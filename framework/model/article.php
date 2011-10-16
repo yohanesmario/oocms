@@ -96,6 +96,19 @@ class Article {
 		}
 		$i=0;
 		while ($result[$i]=mysql_fetch_array($query)) {
+			$time = explode(":", $result[$i]['comment_time']);
+			$date = explode("-", $result[$i]['comment_date']);
+
+			date_default_timezone_set("GMT");
+			$mktime_gmt = mktime(intval($time[0]), intval($time[1]), intval($time[2]), intval($date[1]), intval($date[2]), intval($date[0]));
+			date_default_timezone_set($time_zone);
+			$mktime_user = mktime(intval($time[0]), intval($time[1]), intval($time[2]), intval($date[1]), intval($date[2]), intval($date[0]));
+			$mktime = $mktime_gmt-$mktime_user;
+
+			$mktime = mktime(intval($time[0]), intval($time[1]), intval($time[2]), intval($date[1]), intval($date[2]), intval($date[0]))+$mktime;
+			$result[$i]['comment_date'] = date("l, d F Y", $mktime); //Friday, 19 August 2011
+			$result[$i]['comment_time'] = date("g:i A", $mktime); //2:16 PM
+			$result[$i]['comment_time'] .= ($time_zone=="GMT")?" GMT":""; //2:16 PM GMT
 			$i++;
 		}
 		return $result;
