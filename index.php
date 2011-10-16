@@ -39,6 +39,7 @@ $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a 
 				window.location="";
 			}
 		</script>
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="framework/stylesheet/default.css" />
 	</head>
 	<body>  
