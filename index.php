@@ -24,7 +24,7 @@ $sidebar = new Sidebar($dbAccess); //sidebar view
 
 //getting view results
 $headResult = $head->printHead();
-$bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $tab); //contain the book span HTML in a string
+$bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $folder, $archive, $tab); //contain the book span HTML in a string
 $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a string
 
 ?>

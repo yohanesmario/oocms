@@ -13,7 +13,7 @@ class Book {
 		$this->janitor = $janitor;
 	}
 
-	public function printBook($limit, $page, $comment, $id, $tab) {
+	public function printBook($limit, $page, $comment, $id, $folder, $archive, $tab) {
 		$return = "<span class='book'>\n";
 
 		if ($tab!=NULL) {
@@ -21,13 +21,27 @@ class Book {
 		} else {
 			$page = ($page==NULL || $page<=0)?1:$page;
 			$return .= $this->printArticle($limit, $page, $comment, $id);
-			if ($this->janitor->validatePage((intval($page)+1)."") || $this->janitor->validatePage((intval($page)+1)."")) {
+			if ($this->janitor->validatePage((intval($page)+1)."", $id, $folder, $archive) || $this->janitor->validatePage((intval($page)-1)."", $id, $folder, $archive)) {
 				$return .= "<div class='pagination'>\n";
-				if($this->janitor->validatePage((intval($page)+1)."")) {
-					$return .= "<span class='older'><a href='?page=".(intval($page)+1)."'>&lt; older page</a></span>";
+				if($this->janitor->validatePage((intval($page)+1)."", $id, $folder, $archive)) {
+					$return .= "<span class='older'><a href='?";
+					if ($folder!=NULL) {
+						$return .= "folder=".$folder."&";
+					}
+					if ($archive!=NULL) {
+						$return .= "archive=".$archive."&";
+					}
+					$return .= "page=".(intval($page)+1)."'>&lt; older page</a></span>";
 				}
-				if($this->janitor->validatePage((intval($page)-1)."")) {
-					$return .= "<span class='newer'><a href='?page=".(intval($page)-1)."'>newer page &gt;</a></span>";
+				if($this->janitor->validatePage((intval($page)-1)."", $id, $folder, $archive)) {
+					$return .= "<span class='newer'><a href='?";
+					if ($folder!=NULL) {
+						$return .= "folder=".$folder."&";
+					}
+					if ($archive!=NULL) {
+						$return .= "archive=".$archive."&";
+					}
+					$return .= "page=".(intval($page)-1)."'>newer page &gt;</a></span>";
 				}
 				$return .= "</div>\n";
 			}
