@@ -19,11 +19,13 @@ $tab = ($janitor->validateTab($_GET['tab'])) ? $_GET['tab'] : NULL; //..........
 //I use conditional operator to shorten the sanitization code above. To learn about conditional operator, just google "conditional operator php".
 
 $head = new Head($dbAccess); //head view
+$menu = new Menu($dbAccess); //menu view
 $book = new Book($janitor, $dbAccess, $id, $folder, $archive); //book view
 $sidebar = new Sidebar($dbAccess); //sidebar view
 
 //getting view results
 $headResult = $head->printHead();
+$menuResult = $menu->printMenu();
 $bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $folder, $archive, $tab); //contain the book span HTML in a string
 $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a string
 
@@ -44,6 +46,9 @@ $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a 
 	</head>
 	<body>  
 		<table id='site'>
+			<tr>
+				<td colspan=2 id='menu'><?php echo $menuResult; ?></td>
+			</tr>
 			<tr>
 				<td colspan=2 id='head'><?php echo $headResult; ?></td>
 			</tr>

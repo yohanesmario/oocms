@@ -9,7 +9,7 @@ class Title {
 
 	public function Title($dbAccess) {
 		$this->dbAccess = $dbAccess;
-		$this->dbAccess->connect;
+		$this->dbAccess->connect();
 
 		$SQL = "SELECT * FROM options where id = 1";
 		$query = mysql_query($SQL);

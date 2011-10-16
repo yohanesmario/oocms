@@ -10,11 +10,13 @@ include "model/widget/folder.php";
 include "model/widget/archive.php";
 include "model/widget/blogroll.php";
 include "model/widget/title.php";
+include "model/widget/tabs.php";
 
 // view
 include "view/book.php";
 include "view/sidebar.php";
 include "view/head.php";
+include "view/menu.php";
 
 // controller
 include "controller/janitor.php";
