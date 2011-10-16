@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `widget` (
 
 INSERT INTO `widget` (`id`, `widget_type`, `content`) VALUES
 (2, 'text', '<p>Around here, however, we dont look backwards for very long. We keep moving forward, opening up new doors and doing new things, because were curious and curiosity keeps leading us down new paths. Were always exploring and experimenting. <br><b>&mdash; Walt Disney</b></p>'),
-(1, 'image', 'framework/source/sample.jpg:separator:this is the alt text'),
+(1, 'image', 'framework/source/sample.png:separator:this is the alt text'),
 (3, 'folder', ''),
 (4, 'archive', ''),
 (5, 'blogroll', '');
