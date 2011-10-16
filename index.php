@@ -30,7 +30,7 @@ $bookResult = $book->printBook(NULL, $page, ($id!=NULL)?true:false, $id, $folder
 $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a string
 
 ?>
-<html>
+<!DOCTYPE html>
 	<head>
 		<script type="text/javascript" src='framework/javascript/detect_timezone.js'></script>
 		<script type="text/javascript" src='framework/javascript/cookie.js'></script>
