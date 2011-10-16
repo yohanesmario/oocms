@@ -7,7 +7,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `blog`
+-- Database: `oocms`
 --
 CREATE DATABASE `oocms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `oocms`;
@@ -121,6 +121,7 @@ INSERT INTO `options` (`id`, `blog_title`, `tag_line`, `limits`, `storage_server
 
 CREATE TABLE IF NOT EXISTS `widget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `widget_type` varchar(50) NOT NULL,
   `content` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
