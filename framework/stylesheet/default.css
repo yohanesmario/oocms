@@ -1,6 +1,8 @@
 html,
 body {
 	margin:0px;
+	font-family:Ubuntu, Sans-serif;
+	color:#303030;
 }
 
 #site {
@@ -11,22 +13,24 @@ body {
 #site tr,
 #site tr td {
 	border-collapse:collapse;
-	border:1px solid black;
 	vertical-align:top;
 	margin:0px;
 }
 
 #site tr td {
-	padding:10px;
+	padding:0px;
 }
 
 #head {
 	min-width:800px;
 	text-align:center;
+	border-bottom:1px solid #D2D2D2;
+	background-color:#F2F2F2;
 }
 
 #book {
 	min-width:500px;
+	border-right:1px solid #D2D2D2;
 }
 
 #sidebar {
@@ -34,10 +38,28 @@ body {
 	min-width:300px;
 }
 
+#head .head {
+	padding:30px;
+	font-size:14;
+}
+
 #book .book .article {
-	border-bottom:1px solid black;
-	padding-top:10px;
-	padding-bottom:10px;
+	border-bottom:1px dotted #D2D2D2;
+	padding:30px;
+	font-size:14;
+}
+
+.pagination .newer,
+.pagination .older {
+	padding:30px;
+	font-size:14;
+}
+
+.pagination {
+	border-bottom:1px dotted #D2D2D2;
+	padding-top:20px;
+	padding-bottom:20px;
+	text-align:center;
 }
 
 #book .book .article .title,
@@ -49,4 +71,36 @@ body {
 
 #book .book .article .content {
 	text-align:justify;
+	line-height:150%;
+}
+
+#sidebar .sidebar .widget {
+	border-bottom:1px dotted #D2D2D2;
+	padding:30px;
+	text-align:justify;
+	font-size:14;
+	line-height:150%;
+}
+
+a:link {color:#303030;}      /* unvisited link */
+a:visited {color:#303030;}  /* visited link */
+a:hover {color:#ff0000;}  /* mouse over link */
+a:active {color:#ff0000;}  /* selected link */
+
+.title a {text-decoration:none;}
+
+.head .title {
+	font-size:36;
+}
+
+.article .title {
+	font-size:20;
+}
+
+.widget .title {
+	font-weight:bold;
+}
+
+.article .date_time {
+	font-size:12;
 }

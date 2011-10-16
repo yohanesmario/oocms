@@ -19,7 +19,7 @@ $tab = ($janitor->validateTab($_GET['tab'])) ? $_GET['tab'] : NULL; //..........
 //I use conditional operator to shorten the sanitization code above. To learn about conditional operator, just google "conditional operator php".
 
 $head = new Head($dbAccess); //head view
-$book = new Book($dbAccess, $id, $folder, $archive); //book view
+$book = new Book($janitor, $dbAccess, $id, $folder, $archive); //book view
 $sidebar = new Sidebar($dbAccess); //sidebar view
 
 //getting view results

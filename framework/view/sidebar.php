@@ -21,7 +21,7 @@ class Sidebar {
 		switch($type) {
 			case 'folder' : //signature: folder-system
 				$object = new Folder($dbAccess);
-				$result = "Folders\n<ul>\n";
+				$result = "<div class='title'>Folders</div>\n<ul>\n";
 				$iteration = 0;
 				while($object->getFolder($iteration)) {
 					$result .= "<li><a href='?folder=".$object->getFolder($iteration)."'>".$object->getFolder($iteration)."</a></li>\n";
@@ -33,7 +33,7 @@ class Sidebar {
 
 			case 'archive' : //signature: archive-system
 				$object = new Archive($dbAccess);
-				$result = "Archive\n<ul>\n";
+				$result = "<div class='title'>Archive</div>\n<ul>\n";
 				$iteration = 0;
 				while($object->getArchive($iteration)) {
 					$result .= "<li><a href='?archive=".$object->getArchive($iteration)."'>".$object->getYear($iteration)." - ".$object->getMonth($iteration)."</a></li>\n";
@@ -45,7 +45,7 @@ class Sidebar {
 
 			case 'blogroll' :  //signature: blogroll-system
 				$object = new Blogroll($dbAccess);
-				$result = "Blogroll\n<ul>\n";
+				$result = "<div class='title'>Blogroll</div>\n<ul>\n";
 				$iteration = 0;
 				while($object->getName($iteration)) {
 					$result .= "<li><a href='".$object->getBlog($iteration)."'>".$object->getName($iteration)."</a></li>\n";

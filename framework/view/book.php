@@ -5,10 +5,12 @@ include "../license.php";
 class Book {
 	private $article;
 	private $tab;
+	private $janitor;
 
-	public function Book(DBAccess $dbAccess, $id, $folder, $archive) {
+	public function Book(Janitor $janitor, DBAccess $dbAccess, $id, $folder, $archive) {
 		$this->article = new Article($dbAccess, $id, $folder, $archive);
 		$this->tab = new Tab($dbAccess);
+		$this->janitor = $janitor;
 	}
 
 	public function printBook($limit, $page, $comment, $id, $tab) {
@@ -17,7 +19,18 @@ class Book {
 		if ($tab!=NULL) {
 			$return .= $this->printTab($tab);
 		} else {
+			$page = ($page==NULL || $page<=0)?1:$page;
 			$return .= $this->printArticle($limit, $page, $comment, $id);
+			if ($this->janitor->validatePage((intval($page)+1)."") || $this->janitor->validatePage((intval($page)+1)."")) {
+				$return .= "<div class='pagination'>\n";
+				if($this->janitor->validatePage((intval($page)+1)."")) {
+					$return .= "<span class='older'><a href='?page=".(intval($page)+1)."'>&lt; older page</a></span>";
+				}
+				if($this->janitor->validatePage((intval($page)-1)."")) {
+					$return .= "<span class='newer'><a href='?page=".(intval($page)-1)."'>newer page &gt;</a></span>";
+				}
+				$return .= "</div>\n";
+			}
 		}
 
 		$return .= "</span>"; //end of <span class='book'>
@@ -34,7 +47,6 @@ class Book {
 
 	private function printArticle($limit, $page, $comment, $id) {
 		// NEED TO IMPLEMENT CLIENT_TIME_ZONE!
-		$page = ($page==NULL || $page<=0)?1:$page;
 		$comment = ($comment==NULL)?false:$comment;
 		$limit = ($limit==NULL)?$this->article->getLimit():$limit;
 		$i = $limit*($page-1);
@@ -45,14 +57,14 @@ class Book {
 				$return .= "<div class='title'><a title='By : ".$this->article->getAuthor($i)."' href='?id=".$this->article->getID($i)."'>".$this->article->getTitle($i)."</a></div>\n";
 				$return .= "<div class='date_time'>";
 				$return .= "<span class='date'>".$this->article->getDate($i)."</span>";
-				$return .= " | "; //separator
+				$return .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; //separator
 				$return .= "<span class='time'>".$this->article->getTime($i)."</span>\n";
 				$return .= "</div>";
 				$return .= "<div class='content'>".$this->article->getContent($i)."</div>\n";
 				$return .= "<div class='footer'>\n";
 					if ($comment==false) {
-						$return .= "<span class='folder'>Posted in <a href='?folder=".$this->article->getFolder($i)."'>".$this->article->getFolder($i)."</a></span>\n";
-
+						$return .= "<span class='folder'>Posted in <a href='?folder=".$this->article->getFolder($i)."'>".$this->article->getFolder($i)."</a></span>";
+						$return .= " | "; //separator
 						if ($this->article->countComments($this->article->getID($i)) > 1) {
 							$return .= "<span class='commentCount'><a href='?id=".$this->article->getID($i)."#comments'>".$this->article->countComments($this->article->getID($i))." comments</a></span>\n";
 						} else if ($this->article->countComments($this->article->getID($i)) > 0) {
