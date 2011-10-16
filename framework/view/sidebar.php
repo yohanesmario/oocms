@@ -36,7 +36,7 @@ class Sidebar {
 				$result = "<div class='title'>Archive</div>\n<ul>\n";
 				$iteration = 0;
 				while($object->getArchive($iteration)) {
-					$result .= "<li><a href='?archive=".$object->getArchive($iteration)."'>".$object->getYear($iteration)." - ".$object->getMonth($iteration)."</a></li>\n";
+					$result .= "<li><a href='?archive=".$object->getArchive($iteration)."'>".$object->getMonth($iteration)." ".$object->getYear($iteration)."</a></li>\n";
 					$iteration++;
 				}
 				$result .= "</ul>";

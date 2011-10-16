@@ -43,6 +43,36 @@ $sidebarResult = $sidebar->printSidebar(); //contain the sidebar span HTML in a 
 		</script>
 		<link href='http://fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="framework/stylesheet/default.css" />
+		<title><?php //This php script is used for getting the <title> value
+			$echo = $head->getTitle()." { ";
+			if ($tab!=NULL) {
+				$echo .= $book->getTabTitle($tab);
+			} else if ($id!=NULL) {
+				$echo .= $book->getArticleTitle();
+			} else if ($folder!=NULL) {
+				$echo .= $folder." Folder";
+			} else if ($archive!=NULL) {
+				$date = explode("-", $archive);
+				switch($date[1]) {
+					case "01": $echo .= "January"; break;
+					case "02": $echo .= "February"; break;
+					case "03": $echo .= "March"; break;
+					case "04": $echo .= "April"; break;
+					case "05": $echo .= "May"; break;
+					case "06": $echo .= "June"; break;
+					case "07": $echo .= "July"; break;
+					case "08": $echo .= "August"; break;
+					case "09": $echo .= "September"; break;
+					case "10": $echo .= "October"; break;
+					case "11": $echo .= "November"; break;
+					case "12": $echo .= "December"; break;
+				}
+				$echo .= " ".$date[0];
+			} else {
+				$echo .= "Home";
+			}
+			echo $echo." }";
+		?></title>
 	</head>
 	<body>  
 		<table id='site'>

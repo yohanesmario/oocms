@@ -38,29 +38,11 @@ body {
 	min-width:300px;
 }
 
-#book .book .article .content {
-	text-align:justify;
-	line-height:150%;
-}
-
-#sidebar .sidebar .widget {
-	padding:30px;
-	text-align:justify;
-	font-size:14;
-	line-height:150%;
-}
-
 #menu {
 	border-bottom:3px solid #D2D2D2;
 }
 
 .head {
-	padding:30px;
-	font-size:14;
-}
-
-.book .article {
-	border-bottom:1px dotted #D2D2D2;
 	padding:30px;
 	font-size:14;
 }
@@ -78,11 +60,31 @@ body {
 	text-align:center;
 }
 
+.book .article,
+.book .tab {
+	border-bottom:1px dotted #D2D2D2;
+	padding:30px;
+	font-size:14;
+}
+
 .book .article .title,
 .book .article .date_time,
 .book .article .footer,
 .book .tab .title {
 	text-align:center;
+}
+
+.book .article .content,
+.book .tab .content {
+	text-align:justify;
+	line-height:150%;
+}
+
+.sidebar .widget {
+	padding:30px;
+	text-align:justify;
+	font-size:14;
+	line-height:150%;
 }
 
 .menu {
@@ -127,7 +129,8 @@ a:active {color:#ff0000;}  /* selected link */
 	font-size:36;
 }
 
-.article .title {
+.article .title,
+.tab .title {
 	font-size:20;
 }
 

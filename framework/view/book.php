@@ -136,6 +136,14 @@ class Book {
 		}
 		return $return;
 	}
+
+	public function getTabTitle($tab) {
+		return $this->tab->getTitle($tab);
+	}
+
+	public function getArticleTitle() {
+		return $this->article->getTitle(0);
+	}
 }
 
 ?>

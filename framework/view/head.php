@@ -16,6 +16,10 @@ class Head {
 		$return .= "</div>";
 		return $return;
 	}
+	
+	public function getTitle() {
+		return $this->title->getTitle();
+	}
 }
 
 ?>
