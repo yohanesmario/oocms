@@ -6,11 +6,13 @@ class Book {
 	private $article;
 	private $tab;
 	private $janitor;
+	private $sessionArray;
 
-	public function Book(Janitor $janitor, DBAccess $dbAccess, $id, $folder, $archive) {
+	public function Book(Janitor $janitor, DBAccess $dbAccess, $id, $folder, $archive, $sessionArray) {
 		$this->article = new Article($dbAccess, $id, $folder, $archive);
 		$this->tab = new Tab($dbAccess);
 		$this->janitor = $janitor;
+		$this->sessionArray = $sessionArray;
 	}
 
 	public function printBook($limit, $page, $comment, $id, $folder, $archive, $tab) {
@@ -133,17 +135,17 @@ class Book {
 
 		if ($commentBox==true) {
 			$return .= "<form id='comment_box' method='POST' action=''>
-					<p>Name:<br />
-						<input class='text' type='text' name='name' size=40 value='' placeholder='enter your name here' />
+					<p>".(($this->sessionArray['logged_in'])?("You're logged in as ".$this->sessionArray['fullname']."."):("Name:<br />
+						<input class='text' type='text' name='name' size=40 value='".$this->sessionArray['fullname']."' placeholder='enter your name here' />
 					</p>
 
 					<p>Email (not published):<br />
-						<input class='text' type='email' placeholder='enter your email here' name='email' size=40 value='' />
+						<input class='text' type='email' placeholder='enter your email here' name='email' size=40 value='".$this->sessionArray['email']."' />
 					</p>
 
 					<p>Website (optional):<br />
-						<input class='text' type='url' name='website' size=40 value='' placeholder='enter your website url here (optional)' />
-					</p>
+						<input class='text' type='url' name='website' size=40 value='".$this->sessionArray['website']."' placeholder='enter your website url here (optional)' />
+					"))."</p>
 
 					<p>Comment:<br />
 						<textarea id='commenttextarea' class='text' name='comment' rows=5 cols=40></textarea>

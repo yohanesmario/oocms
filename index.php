@@ -13,19 +13,20 @@ $janitor = new Janitor($dbAccess); //core controller layer
 $session = new Session($janitor);
 $sessionArray = $session->getSessionArray();
 
-$commentScript = $janitor->processComment($session);
+$commentScript = $janitor->processComment($sessionArray);
 
 //Never forget to sanitize all input! Use the Janitor class for every input accordingly! (that's one of the purpose of MVC architecture)
-$id = ($janitor->validateID($_GET['id'])) ? $_GET['id'] : NULL; //..................................... sanitize $_GET['id']
-$folder = ($janitor->validateFolder($_GET['folder'])) ? $_GET['folder'] : NULL; //..................... sanitize $_GET['folder']
-$archive = ($janitor->validateArchive($_GET['archive'])) ? $_GET['archive'] : NULL; //................. sanitize $_GET['archive']
-$page = ($janitor->validatePage($_GET['page'], $id, $folder, $archive)) ? $_GET['page'] : NULL; //..... sanitize $_GET['page']
-$tab = ($janitor->validateTab($_GET['tab'])) ? $_GET['tab'] : NULL; //................................. sanitize $_GET['tab']
-//I use conditional operator to shorten the sanitization code above. To learn about conditional operator, just google "conditional operator php".
+$httpGetArray = $janitor->sanitizeHTTPGet();
+
+$id = $httpGetArray['id'];
+$folder = $httpGetArray['folder'];
+$archive = $httpGetArray['archive'];
+$page = $httpGetArray['page'];
+$tab = $httpGetArray['tab'];
 
 $head = new Head($dbAccess); //head view
 $menu = new Menu($dbAccess); //menu view
-$book = new Book($janitor, $dbAccess, $id, $folder, $archive); //book view
+$book = new Book($janitor, $dbAccess, $id, $folder, $archive, $sessionArray); //book view
 $sidebar = new Sidebar($dbAccess); //sidebar view
 
 //getting view results

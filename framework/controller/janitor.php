@@ -11,6 +11,16 @@ class Janitor {
 		$this->dbAccess->connect();
 	}
 
+	public function sanitizeHTTPGet() {
+		$result['id'] = ($this->validateID($_GET['id'])) ? $_GET['id'] : NULL;
+		$result['folder'] = ($this->validateFolder($_GET['folder'])) ? $_GET['folder'] : NULL;
+		$result['archive'] = ($this->validateArchive($_GET['archive'])) ? $_GET['archive'] : NULL;
+		$result['page'] = ($this->validatePage($_GET['page'], $id, $folder, $archive)) ? $_GET['page'] : NULL;
+		$result['tab'] = ($this->validateTab($_GET['tab'])) ? $_GET['tab'] : NULL;
+		
+		return $result;
+	}
+
 	public function validateNumbers($num) {
 		$boolean = filter_var($num, FILTER_VALIDATE_INT);
 		return $boolean;
@@ -240,19 +250,21 @@ class Janitor {
 		return $validator;
 	}
 
-	public function processComment(Session $session) {
+	public function processComment($sessionArray) {
 		if ($_POST['comment']) {
+			$loggedIn = $sessionArray['logged_in'];
 			$comment = $this->sanitizeHTML($_POST['comment']);
-			$name = $this->sanitizeHTML($_POST['name']);
+			$name = ($loggedIn)?$sessionArray['fullname']:$_POST['name'];
+			$email = ($loggedIn)?$sessionArray['email']:$_POST['email'];
+			$website = ($loggedIn)?$sessionArray['website']:$_POST['website'];
 			$date = gmdate("Y-m-d");
 			$time = gmdate("H:i:s");
-			$type = $session->getSessionArray();
-			$type = $type['type'];
-			if (($_POST['website']=="" || !$_POST['website'] || $this->validateURL($_POST['website'])) &&
-			     $this->validateEmail($_POST['email']) &&
+			$type = $sessionArray['type'];
+			if (($website=="" || !$website || $this->validateURL($website)) &&
+			     $this->validateEmail($email) &&
 			     $this->validateID($_POST['id']) &&
 			     ($this->validateCommentID($_POST['replyto']) || $_POST['replyto']=="0")) {
-				$SQL = "INSERT INTO comments (commenter_name, email, website, comments, post_id, comment_date, comment_time, reply_to, commenter_type) VALUES ( '$name', '".$_POST['email']."', '".$_POST['website']."', '$comment', '$id', '$date', '$time', '".$_POST['replyto']."', '$type');";
+				$SQL = "INSERT INTO comments (commenter_name, email, website, comments, post_id, comment_date, comment_time, reply_to, commenter_type) VALUES ( '$name', '$email', '$website', '$comment', '".$_POST['id']."', '$date', '$time', '".$_POST['replyto']."', '$type');";
 				$query = mysql_query($SQL);
 				if (!$query) {
 					echo(mysql_error());

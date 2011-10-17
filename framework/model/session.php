@@ -8,6 +8,7 @@ class Session {
 	private $email;
 	private $website;
 	private $type;
+	private $loggedIn;
 	private $janitor;
 
 	public function Session(Janitor $janitor) {
@@ -18,11 +19,12 @@ class Session {
 
 	private function startSession() {
 		$boolean = $this->janitor->validateSession($_SESSION['username'],$_SESSION['fullname'],$_SESSION['email'],$_SESSION['website'],$_SESSION['type']);
-		$this->username = ($boolean)?$_SESSION['username']:NULL;
-		$this->fullname = ($boolean)?$_SESSION['fullname']:NULL;
+		$this->username = ($boolean)?$_SESSION['username']:"guest";
+		$this->fullname = ($boolean)?$_SESSION['fullname']:"Guest";
 		$this->email = ($boolean)?$_SESSION['email']:NULL;
 		$this->website = ($boolean)?$_SESSION['website']:NULL;
-		$this->type = ($boolean)?$_SESSION['type']:"visitor";
+		$this->type = ($boolean)?$_SESSION['type']:"guest";
+		$this->loggedIn = $boolean;
 	}
 
 	public function registerSession($username, $password) {
@@ -40,12 +42,19 @@ class Session {
 		$this->startSession();
 	}
 
+	public function endSession() {
+		session_destroy();
+		session_start();
+		$this->startSession();
+	}
+
 	public function getSessionArray() {
 		$result['username'] = $this->username;
 		$result['fullname'] = $this->fullname;
 		$result['email'] = $this->email;
 		$result['website'] = $this->website;
 		$result['type'] = $this->type;
+		$result['logged_in'] = $this->loggedIn;
 		return $result;
 	}
 }
