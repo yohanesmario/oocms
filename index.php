@@ -10,7 +10,10 @@ include "framework/includes.php"; //include all listed classes. If you make cust
 $dbAccess = new DBAccess(); //core model layer
 $janitor = new Janitor($dbAccess); //core controller layer
 
-$commentScript = $janitor->processComment();
+$session = new Session($janitor);
+$sessionArray = $session->getSessionArray();
+
+$commentScript = $janitor->processComment($session);
 
 //Never forget to sanitize all input! Use the Janitor class for every input accordingly! (that's one of the purpose of MVC architecture)
 $id = ($janitor->validateID($_GET['id'])) ? $_GET['id'] : NULL; //..................................... sanitize $_GET['id']
