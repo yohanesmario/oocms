@@ -199,9 +199,11 @@ class Janitor {
 					echo(mysql_error());
 					exit();
 				}
+				return "";
 			} else {
-				echo "<script type='text/javascript'>alert('Please enter valid value(s)!');</script>";
+				return "<script type='text/javascript'>document.getElementById('replytomessage').innerHTML='Please enter valid values!';</script>";
 			}
+			return "";
 		}
 	}
 }
