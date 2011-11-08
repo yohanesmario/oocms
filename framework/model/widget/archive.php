@@ -12,7 +12,7 @@ class Archive {
 		$this->dbAccess = $dbAccess;
 		$this->dbAccess->connect();
 
-		$SQL = "SELECT DISTINCT article_date FROM content ORDER BY article_date DESC";
+		$SQL = "SELECT DISTINCT date_gmt FROM content ORDER BY date_gmt DESC";
 		$query = mysql_query($SQL);
 		if (!$query) {
 			die("Database ERROR! Can't get archive!");
@@ -20,7 +20,7 @@ class Archive {
 		
 		$i=0;
 		while($result = mysql_fetch_array($query)) {
-			$temp = explode("-", $result['article_date']);
+			$temp = explode("-", $result['date_gmt']);
 			$temp[2] = $temp[0]."-".$temp[1];
 			if ($i==0 || $temp[2]!=$this->archive[$i-1]) {
 				$this->archive[$i] = $temp[2];

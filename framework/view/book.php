@@ -62,7 +62,6 @@ class Book {
 	}
 
 	private function printArticle($limit, $page, $comment, $id, $janitor) {
-		// NEED TO IMPLEMENT CLIENT_TIME_ZONE!
 		$comment = ($comment==NULL)?false:$comment;
 		$limit = ($limit==NULL)?$this->article->getLimit():$limit;
 		$i = $limit*($page-1);

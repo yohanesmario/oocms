@@ -68,6 +68,8 @@ class Janitor {
 	}
 
 	public function validateUserNamePassword($username, $password) {
+		$password = ($password!=NULL)?hash("whirlpool", $password):NULL;
+
 		$SQL = "SELECT * FROM users ORDER BY id ASC";
 		$query = mysql_query($SQL);
 		if (!$query) {
@@ -85,7 +87,7 @@ class Janitor {
 			$i++;
 		}
 		$i=0; $result['boolean'] = false;
-		while ($pwd[$i] && $validator==false) {
+		while ($pwd[$i] && $result['boolean']==false) {
 			if ($password==$pwd[$i] && $username==$usr[$i]) {
 				$result['boolean'] = true;
 				$result['fullname'] = $fname[$i];
@@ -270,11 +272,55 @@ class Janitor {
 					echo(mysql_error());
 					exit();
 				}
-				return "";
+				return "<script type='text/javascript'>document.getElementById('replytomessage').innerHTML='Comment is submitted!';</script>";
 			} else {
 				return "<script type='text/javascript'>document.getElementById('replytomessage').innerHTML='Please enter valid values!';</script>";
 			}
 			return "";
+		}
+	}
+
+	public function processArticle($sessionArray) {
+		if ($sessionArray['logged_in']==true) {
+			if ($_POST['submitArticle']) {
+				$title = $_POST['title'];
+				$folder = $_POST['folder'];
+				$id = ($_POST[id==NULL])?NULL:intval($_POST['id']);
+				$content = $_POST['content'];
+				$author = $sessionArray['fullname'];
+				$date = gmdate("Y-m-d");
+				$time = gmdate("H:i:s");
+				if ($id==NULL) {
+					$SQL = "INSERT INTO content (title, folder, date_gmt, time_gmt, content, content_author) VALUES ('$title', '$folder', '$date', '$time', '$content', '$author');";
+				} else {
+					$SQL = "UPDATE content SET title = '$title', folder = '$folder', content = '$content' WHERE id = $id";
+				}
+				$query = mysql_query($SQL);
+				if (!$query) {
+					echo(mysql_error());
+					exit();
+				}
+			}
+		}
+	}
+
+	public function processTab($sessionArray) {
+		if ($sessionArray['logged_in']==true) {
+			if ($_POST['submitTab']) {
+				$title = $_POST['title'];
+				$id = ($_POST[id==NULL])?NULL:intval($_POST['id']);
+				$content = $_POST['content'];
+				if ($id==NULL) {
+					$SQL = "INSERT INTO tab (title, content) VALUES ('$title', '$content');";
+				} else {
+					$SQL = "UPDATE tab SET title = '$title', content = '$content' WHERE id = $id";
+				}
+				$query = mysql_query($SQL);
+				if (!$query) {
+					echo(mysql_error());
+					exit();
+				}
+			}
 		}
 	}
 }

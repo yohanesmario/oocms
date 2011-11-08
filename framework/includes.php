@@ -17,6 +17,7 @@ include "view/book.php";
 include "view/sidebar.php";
 include "view/head.php";
 include "view/menu.php";
+include "view/admin.php";
 
 // controller
 include "controller/janitor.php";
