@@ -1,6 +1,7 @@
-[This Project Is Dead]
+#OOCMS
+####(Object Oriented Content Management System)
 
-OOCMS (Object Oriented Content Management System)
+***[This Project Is Dead]***
 
 version 1.0-alpha2-pre
 
@@ -13,6 +14,6 @@ The framework directory is protected by a .htaccess file, but it may be best to 
 as it contains sensitive information.
 
 To-do List:
-1. Special widgets (title, footer)
-2. Comment Box
-3. Admin panel
+    1. Special widgets (title, footer)
+    2. Comment Box
+    3. Admin panel
