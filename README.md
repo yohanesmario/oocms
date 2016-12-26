@@ -1,4 +1,4 @@
-#OOCMS [This Project Is Dead]
+#OOCMS
 ######(Object Oriented Content Management System)
 version 1.0-alpha2-pre
 
